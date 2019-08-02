@@ -14,6 +14,7 @@ int main()
         char buf[512];
         int bytes = read(fd, buf, sizeof(buf));
 
+	/*
         if (bytes < 0)
         {
             prints("Read file /test fail.\n");
@@ -27,6 +28,7 @@ int main()
             prints("File /test content:\n");
             prints(buf);
         }
+	*/
     }
 
     for (;;);

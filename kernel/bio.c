@@ -203,6 +203,7 @@ struct bio * bio_get(uint8_t dev, uint64_t sector)
         bio->flag = 0;
         bio->dev = dev;
         bio->sector = base_sector;
+        printk("alloc_bio bio->dev = %d\n", dev);
     }
 
     while (bio->flag & (BIO_FLAG_REFFED | BIO_FLAG_DIRTY))
@@ -277,6 +278,8 @@ bool bio_read(struct bio *bio)
         ide_dma_read_sectors(&io);
         sleep_wait_bio_complete(bio);
     }
+
+    printk("bio_read bio->dev = %d\n", bio->dev);
 
     return (bio->flag & BIO_FLAG_UPDATED) != 0;
 }

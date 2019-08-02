@@ -47,7 +47,7 @@ static inline void free_inode(struct inode **inode)
 
 void vfs_initialize()
 {
-    root.device = 1;
+    root.device = 2;
     root.mount_root = "/";
     root.fs = &axfs;
 

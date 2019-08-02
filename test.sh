@@ -1,1 +1,1 @@
-qemu-system-i386 -fda a.img -hda disk -hdb axfs.img -boot a
+qemu-system-i386 -fda a.img -hda disk -hdc axfs.img -boot a -curses

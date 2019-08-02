@@ -449,7 +449,8 @@ static inline bool sync_io_sectors(const struct ide_io *io_data,
     for (uint8_t bus = drives[io.drive].bus;
          dma_io_data[bus].next != &dma_io_data[bus];)
         check_if_io_complete(bus);
-
+	
+	printk("sync_io_sectors io.drive %d\n", io.drive);
     return !error;
 }
 
