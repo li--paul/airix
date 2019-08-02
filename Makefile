@@ -24,14 +24,14 @@ USR_BIN = $(subst usr,bin,$(subst .c,,$(wildcard usr/*.c)))
 
 INCLUDE = -I. -Ilib
 CFLAGS = -std=c99 -m32 -Wall -Wextra -nostdinc -fno-builtin -fno-stack-protector $(INCLUDE)
-LFLAGS = -nostdlib -Llib -lc
+LFLAGS = -nostdlib -Llib -lc -no-pie
 
 all: dir bootloader kernel libc usr mkfs a_img disk
 
 usr: libc $(USR_BIN)
 
 clean:
-	@ rm -f kernel/*.o mm/*.o fs/*.o lib/*.o lib/*.a usr/*.o mkfs $(BIN_DIR)/* $(A_IMG) $(DISK)
+	@ rm -f kernel/*.o mm/*.o fs/*.o lib/*.o lib/*.a usr/*.o mkfs $(BIN_DIR)/* $(A_IMG) $(DISK) axfs.img
 
 dir:
 	@ mkdir -p $(BIN_DIR)
@@ -42,7 +42,7 @@ bootloader: $(BOOTLOADER_ASM)
 
 kernel: $(KERNEL_OBJS)
 	@ echo "linking $(BIN_DIR)/$(KERNEL) ..."
-	@ ld -m elf_i386 -Ttext-seg=0xC0100000 $(KERNEL_OBJS) -s -o $(BIN_DIR)/$(KERNEL)
+	@ ld -m elf_i386 -Ttext-seg=0xC0100000 $(KERNEL_OBJS) -S -o $(BIN_DIR)/$(KERNEL)
 
 libc: $(LIBC_OBJS)
 	@ echo "ar $(LIB_DIR)/$(LIBC) ..."
